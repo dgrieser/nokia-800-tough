@@ -6,5 +6,21 @@
   "Message_2.opus": {"l10nID": "Message_2"},
   "Message_3.opus": {"l10nID": "Message_3"},
   "Message_4.opus": {"l10nID": "Message_4"},
-  "Message_5.opus": {"l10nID": "Message_5"}
+  "Message_5.opus": {"l10nID": "Message_5"},
+  "alarming.mp3": {"l10nID": "Message_6"},
+  "bike.mp3": {"l10nID": "Message_7"},
+  "blip.mp3": {"l10nID": "Message_8"},
+  "canopen.mp3": {"l10nID": "Message_9"},
+  "cassette.mp3": {"l10nID": "Message_10"},
+  "inahurry.mp3": {"l10nID": "Message_11"},
+  "insight.mp3": {"l10nID": "Message_12"},
+  "intuition.mp3": {"l10nID": "Message_13"},
+  "itworked.mp3": {"l10nID": "Message_14"},
+  "light.mp3": {"l10nID": "Message_15"},
+  "piano.mp3": {"l10nID": "Message_16"},
+  "promise.mp3": {"l10nID": "Message_17"},
+  "smile.mp3": {"l10nID": "Message_18"},
+  "swinging.mp3": {"l10nID": "Message_19"},
+  "toaster.mp3": {"l10nID": "Message_20"}
 }
+
