@@ -2545,7 +2545,16 @@ define('sounds',['require','exports','module','l10n'],function(require, exports)
     'ac_galaxy.ogg': 'ac_galaxy_ogg',
     'ac_kai.ogg': 'ac_kai_ogg',
     'ac_techno.ogg': 'ac_techno_ogg',
-    'ac_woody.ogg': 'ac_woody_ogg'
+    'ac_woody.ogg': 'ac_woody_ogg',
+    'ac_alarm_1.mp3': 'ac_alarm_1',
+    'ac_alarm_2.mp3': 'ac_alarm_2',
+    'ac_alarm_3.mp3': 'ac_alarm_3',
+    'ac_alarm_4.mp3': 'ac_alarm_4',
+    'ac_alarm_5.mp3': 'ac_alarm_5'
+    'ac_alarm_6.mp3': 'ac_alarm_6',
+    'ac_alarm_7.mp3': 'ac_alarm_7',
+    'ac_alarm_8.mp3': 'ac_alarm_8',
+    'ac_alarm_9.mp3': 'ac_alarm_9'
   };
 
   exports.normalizeSound = function(sound) {
