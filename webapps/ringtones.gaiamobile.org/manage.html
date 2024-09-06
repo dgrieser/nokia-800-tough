@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Manage Ringtones</title>
+    <link rel="stylesheet" type="text/css" href="shared/style/action_menu.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/confirm.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/status.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/switches.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/lists.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/navigation.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/option_menu.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/softkey.css">
+    <link rel="stylesheet" type="text/css" href="style/manage.css">
+    <link rel="stylesheet" type="text/css" href="style/index.css">
+    <!-- shared resources -->
+    <!-- this is here so the directory gets copied -->
+    <link rel="resource" type="application/json" href="shared/resources/media/ringtones/">
+    <link rel="resource" type="application/json" href="shared/resources/media/notifications/">
+    <!-- Localization -->
+    <meta name="defaultLanguage" content="en-US">
+    <meta name="availableLanguages" content="af-ZA:202202111709, ar-SA:202202111709, az-Latn-AZ:202202111709, be-BY:202202111709, bg-BG:202202111709, bn-BD:202202111709, bn-IN:202202111709, bs-BA:202202111709, cs-CZ:202202111709, da-DK:202202111709, de-DE:202202111709, el-GR:202202111709, en-GB:202202111709, en-NG:202202111709, en-US:202202111709, es-ES:202202111709, es-US:202202111709, et-EE:202202111709, fi-FI:202202111709, fr-FR:202202111709, fr-CA:202202111709, he-IL:202202111709, hi-IN:202202111709, hr-HR:202202111709, hu-HU:202202111709, hy-AM:202202111709, id-ID:202202111709, it-IT:202202111709, km-KH:202202111709, kk-KZ:202202111709, lt-LT:202202111709, lv-LV:202202111709, lo-LA:202202111709, ka-GE:202202111709, mk-MK:202202111709, ms-MY:202202111709, nb-NO:202202111709, ne-IN:202202111709, nl-NL:202202111709, pl-PL:202202111709, pt-BR:202202111709, pt-PT:202202111709, ro-RO:202202111709, ru-RU:202202111709, si-LK:202202111709, sk-SK:202202111709, sl-SI:202202111709, sq-AL:202202111709, sr-Latn-CS:202202111709, sv-SE:202202111709, sw-ZA:202202111709, ta-IN:202202111709, th-TH:202202111709, fil-PH:202202111709, tr-TR:202202111709, uk-UA:202202111709, ur-PK:202202111709, vi-VN:202202111709, xh-ZA:202202111709, zh-CN:202202111709, zh-TW:202202111709, zh-HK:202202111709, is-IS:202202111709, zu-ZA:202202111709, mo-RO:202202111709, fa-IR:202202111709, ps-AF:202202111709, uz-Cyrl-UZ:202202111709">
+    <link rel="localization" href="/locales-obj/{locale}.json">
+    
+    
+    
+    <script type="text/javascript" src="shared/js/l10n.js"></script>
+
+    <script type="text/javascript" defer="" src="shared/js/template.js"></script>
+    <script type="text/javascript" defer="" src="shared/js/custom_dialog.js"></script>
+    <script type="text/javascript" defer="" src="shared/js/toaster.js"></script>
+    <script type="text/javascript" defer="" src="shared/js/device_storage/enumerate_all.js"></script>
+
+    <!-- <link rel="stylesheet" type="text/css" href="shared/elements/gaia-icons/gaia-icons.css" /> -->
+    <link rel="stylesheet" type="text/css" href="/shared/elements/gaia-theme/gaia-font.css">
+    <link rel="stylesheet" type="text/css" href="app://theme.gaiamobile.org/shared/elements/gaia-theme/gaia-theme.css">
+
+    <!-- Web Components -->
+    <script defer="" src="shared/elements/config.js"></script>
+    <script defer="" src="shared/elements/gaia-header/dist/gaia-header.js"></script>
+    <script defer="" type="text/javascript" src="shared/js/component_utils.js"></script>
+
+    <script type="text/javascript" defer="" src="js/system_tones.js"></script>
+    <script type="text/javascript" defer="" src="js/built_in_ringtones.js"></script>
+    <script type="text/javascript" defer="" src="js/custom_ringtones.js"></script>
+    <script type="text/javascript" defer="" src="js/sd_card_ringtones.js"></script>
+    <script type="text/javascript" defer="" src="js/tone_player.js"></script>
+    <script type="text/javascript" defer="" src="js/tone_list.js"></script>
+    <script type="text/javascript" defer="" src="js/actions_menu.js"></script>
+    <script type="text/javascript" defer="" src="js/manage.js"></script>
+
+    <script defer="" src="shared/js/lazy_loader.js"></script>
+    <script defer="" src="shared/js/navigation_handler.js"></script>
+    <script defer="" src="shared/js/softkey_panel.js"></script>
+    <script defer="" src="shared/js/option_menu.js"></script>
+    <script defer="" src="shared/js/homescreens/confirm_dialog_helper.js"></script>
+    <script defer="" src="/shared/elements/gaia_confirm/script.js"></script>
+  <meta content="2.2" name="appVersion"></head>
+
+  <body class="theme-settings">
+    <section role="region" class="skin-organic">
+      <gaia-header id="header">
+        <h1 id="header-title" role="heading" aria-live="assertive"></h1>
+      </gaia-header>
+      <section class="hasNoTones" dialog"="" aria-labelledby="no-tone-text" hidden=" role=">
+        <p id="no-tone-text" data-l10n-id="no-ringtones-warning">No ringtones. Press Add to add a ringtone from your music.</p>
+      </section>
+      <article id="list-parent"></article>
+    </section>
+
+    <div id="sound-list-template" hidden="">
+      <!-- <section hidden>
+        <ul data-type="list"></ul>
+      </section> -->
+    </div>
+
+    <div id="sound-item-template" hidden="">
+      <!-- <li>
+        <div class="desc">
+          <div class="play-icon" data-icon="sound-max"  aria-hidden="true"></div>
+          <p class="name"><bdi data-l10n-id="${l10nID}">${name}</bdi></p>
+        </div>
+      </li> -->
+    </div>
+
+    <div id="app-confirmation-dialog" data-z-index-level="app-confirmation-dialog" style="z-index:1024;"></div>
+  </body>
+
+</html>

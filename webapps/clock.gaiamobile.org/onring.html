@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="theme-color" content="transparent">
+    <title>Clock</title>
+
+    <!-- Date/Time Localization -->
+    <meta name="defaultLanguage" content="en-US">
+    <meta name="availableLanguages" content="af-ZA:202202111709, ar-SA:202202111709, az-Latn-AZ:202202111709, be-BY:202202111709, bg-BG:202202111709, bn-BD:202202111709, bn-IN:202202111709, bs-BA:202202111709, cs-CZ:202202111709, da-DK:202202111709, de-DE:202202111709, el-GR:202202111709, en-GB:202202111709, en-NG:202202111709, en-US:202202111709, es-ES:202202111709, es-US:202202111709, et-EE:202202111709, fi-FI:202202111709, fr-FR:202202111709, fr-CA:202202111709, he-IL:202202111709, hi-IN:202202111709, hr-HR:202202111709, hu-HU:202202111709, hy-AM:202202111709, id-ID:202202111709, it-IT:202202111709, km-KH:202202111709, kk-KZ:202202111709, lt-LT:202202111709, lv-LV:202202111709, lo-LA:202202111709, ka-GE:202202111709, mk-MK:202202111709, ms-MY:202202111709, nb-NO:202202111709, ne-IN:202202111709, nl-NL:202202111709, pl-PL:202202111709, pt-BR:202202111709, pt-PT:202202111709, ro-RO:202202111709, ru-RU:202202111709, si-LK:202202111709, sk-SK:202202111709, sl-SI:202202111709, sq-AL:202202111709, sr-Latn-CS:202202111709, sv-SE:202202111709, sw-ZA:202202111709, ta-IN:202202111709, th-TH:202202111709, fil-PH:202202111709, tr-TR:202202111709, uk-UA:202202111709, ur-PK:202202111709, vi-VN:202202111709, xh-ZA:202202111709, zh-CN:202202111709, zh-TW:202202111709, zh-HK:202202111709, is-IS:202202111709, zu-ZA:202202111709, mo-RO:202202111709, fa-IR:202202111709, ps-AF:202202111709, uz-Cyrl-UZ:202202111709">
+    <link rel="localization" href="/locales-obj/{locale}.json">
+    
+    
+    <script src="/shared/js/lazy_loader.js"></script>
+    <script defer="" src="/shared/js/date_time_helper.js"></script>
+    <script defer="" src="/shared/js/option_menu.js"></script>
+    <script defer="" src="/shared/js/softkey_panel.js"></script>
+    <script defer="" src="/shared/js/option_menu_helper.js"></script>
+    <script defer="" src="/js/onring_soft_keys.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style/onring.css">
+    <link rel="stylesheet" type="text/css" href="style/main.css">
+  <meta content="2.2" name="appVersion"></head>
+
+  <body class="theme-productivity">
+
+    <header class="view-header regular-header clock-onring-header">
+      <h1 data-l10n-id="alarm-title">Alarm</h1>
+    </header>
+
+    <div class="ring-display" data-ring-type="alarm">
+      <div id="ring-icon" data-icon="alarm"></div>
+      <div id="ring-clock">
+        <div id="ring-clock-display">
+          <span id="ring-clock-time"></span>
+        </div>
+        <div class="p-pri" id="ring-label"></div>
+      </div>
+      <div id="footer-button-container" style="display: none;">
+        <button id="ring-button-stop" class="recommend" data-l10n-id="stop">Stop</button>
+        <button id="ring-button-snooze" data-l10n-id="snooze-button">Snooze</button>
+      </div>
+    </div>
+    <script data-main="js/onring.js" src="js/alameda.js"></script>
+  </body>
+
+</html>

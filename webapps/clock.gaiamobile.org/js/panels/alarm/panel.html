@@ -1,0 +1,30 @@
+<div id="clock-view" role="heading" aria-labelledby="kai-clock-title">
+  <div id="analog-clock">
+    <div id="analog-clock-container" role="img">
+      <div id="analog-clock-face">
+        <div id="analog-clock-hands">
+          <div class="analog-clock-hand" id="secondhand"></div>
+          <div class="analog-clock-hand" id="minutehand"></div>
+          <div class="analog-clock-hand" id="hourhand"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="digital-clock">
+    <div id="digital-clock-face">
+      <span id="clock-time"></span>
+    </div>
+  </div>
+  <div id="clock-day-date"></div>
+  <!--  create new alarm icon -->
+  <button id="alarm-new" data-l10n-id="newAlarmButton"></button>
+  <button id="alarm-settings"></button>
+  <button id="alarm-edit"></button>
+  <!-- list of exisiting alarms, to be populated -->
+
+  <div class="p-pri" id="no-alarms-message">
+    <div id="no-alarms-body" data-l10n-id="no-alarms-body"></div>
+  </div>
+
+  <ul id="alarms" role="menu"></ul>
+</div>
