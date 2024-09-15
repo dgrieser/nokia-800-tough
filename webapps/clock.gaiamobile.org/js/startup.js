@@ -2554,7 +2554,7 @@ define('sounds',['require','exports','module','l10n'],function(require, exports)
     'ac_alarm_6.mp3': 'ac_alarm_6_mp3',
     'ac_alarm_7.mp3': 'ac_alarm_7_mp3',
     'ac_alarm_8.mp3': 'ac_alarm_8_mp3',
-    'ac_alarm_9.mp3': 'ac_alarm_9_mp3',
+    'ac_alarm_9.mp3': 'ac_alarm_9_mp3'
   };
 
   exports.normalizeSound = function(sound) {
