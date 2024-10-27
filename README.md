@@ -92,3 +92,11 @@ adb shell
 root@Nokia 800 Tough:/ #
 ```
 
+### Install custom apps
+
+```
+git clone https://gitlab.com/suborg/gdeploy.git
+cd gdeploy/
+npm i
+sudo npm link
+```

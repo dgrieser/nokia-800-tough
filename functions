@@ -1,0 +1,41 @@
+#!/bin/bash
+
+function print_error()
+{
+    echo -e "ERROR: ${1}"
+    exit 1
+}
+
+function check_device()
+{
+    devices="$(adb devices -l | sed '1d' | grep -v '^$')"
+    [ -z "${devices}" ] && print_error "No devices found, will not be able to push data"
+    echo "${devices}" | grep -q "model:Nokia_800_Tough" || print_error "Nokia 800 Tough device not found:\n${devices}"
+    echo "${devices}" | wc -l | grep -q '1' || print_error "Multiple devices found:\n${devices}"
+    return 0
+}
+
+function clean_build_dir()
+{
+    echo "Cleaning build dir..."
+    rm -rf "${BUILD_DIR}" 2>/dev/null
+    mkdir -p "${BUILD_DIR}/${APP_NAME}"
+    return 0
+}
+
+function reboot_device()
+{
+    echo
+    echo -n "Rebooting in"
+    for i in {3..1}; do
+        echo -n " ${i}"
+        sleep 1
+    done
+    echo " now..."
+    adb reboot
+    return 0
+}
+
+WEBAPP_DIR="/data/local/webapps"
+SYSTEM_WEBAPP_DIR="/system/b2g/webapps"
+BUILD_DIR="${ROOT_DIR}/build"

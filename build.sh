@@ -6,16 +6,9 @@ usage()
     exit 1
 }
 
-print_error()
-{
-    echo -e "ERROR: ${1}"
-    exit 1
-}
-
 ROOT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-WEBAPP_DIR="/data/local/webapps"
-BUILD_DIR="${ROOT_DIR}/build"
+source "${ROOT_DIR}/functions"
 
 APP_FOLDER=""
 PUSH=0
@@ -47,22 +40,17 @@ done
 
 [ -z "${APP_FOLDER}" ] && usage
 [ ${REBOOT} -eq 1 ] && [ ${PUSH} -eq 0 ] && print_error "Reboot only makes sense when pushing data"
-if [ ${PUSH} -eq 1 ]; then
-    devices="$(adb devices -l | sed '1d' | grep -v '^$')"
-    [ -z "${devices}" ] && print_error "No devices found, will not be able to push data"
-    echo "${devices}" | grep -q "model:Nokia_800_Tough" || print_error "Nokia 800 Tough device not found:\n${devices}"
-    echo "${devices}" | wc -l | grep -q '1' || print_error "Multiple devices found:\n${devices}"
-fi
+[ ${PUSH} -eq 1 ] && check_device
 
 APP_NAME="$(basename ${APP_FOLDER})"
 
-echo "Cleaning build dir..."
-rm -rf "${BUILD_DIR}" 2>/dev/null
-mkdir -p "${BUILD_DIR}/${APP_NAME}"
+clean_build_dir
 
 echo
 echo "Packaging ${APP_NAME}..."
-zip -r "${BUILD_DIR}/${APP_NAME}/application.zip" "${APP_FOLDER}" || print_error "Failed to package ${APP_NAME}"
+cd "${APP_FOLDER}" >/dev/null || print_error "Failed to cd into ${APP_FOLDER}"
+zip -r "${BUILD_DIR}/${APP_NAME}/application.zip" . || print_error "Failed to package ${APP_NAME}"
+cd - >/dev/null
 cp -v "${APP_FOLDER}_manifest.webapp" "${BUILD_DIR}/${APP_NAME}/manifest.webapp" || print_error "Failed to find ${APP_FOLDER}_manifest.webapp"
 
 if [ ${PUSH} -eq 1 ]; then
@@ -80,14 +68,7 @@ if [ ${PUSH} -eq 1 ]; then
     adb push "${BUILD_DIR}/webapps.json" "${WEBAPP_DIR}/webapps.json"
 fi
 if [ ${REBOOT} -eq 1 ]; then
-    echo
-    echo -n "Rebooting in"
-    for i in {3..1}; do
-        echo -n " ${i}"
-        sleep 1
-    done
-    echo " now..."
-    adb reboot
+    reboot_device
 fi
 
 echo "Done"

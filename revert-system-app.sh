@@ -6,16 +6,10 @@ usage()
     exit 1
 }
 
-print_error()
-{
-    echo -e "ERROR: ${1}"
-    exit 1
-}
-
 ROOT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-WEBAPP_DIR="/data/local/webapps"
-SYSTEM_WEBAPP_DIR="/system/b2g/webapps"
+source "${ROOT_DIR}/functions"
+
 BUILD_DIR="$(mktemp -d)"
 
 APP_FOLDER=""
@@ -42,10 +36,7 @@ while [ $# -gt 0 ]; do
 done
 
 [ -z "${APP_FOLDER}" ] && usage
-devices="$(adb devices -l | sed '1d' | grep -v '^$')"
-[ -z "${devices}" ] && print_error "No devices found, will not be able to push data"
-echo "${devices}" | grep -q "model:Nokia_800_Tough" || print_error "Nokia 800 Tough device not found:\n${devices}"
-echo "${devices}" | wc -l | grep -q '1' || print_error "Multiple devices found:\n${devices}"
+check_device
 
 APP_NAME="$(basename ${APP_FOLDER})"
 
@@ -61,14 +52,7 @@ echo
 adb push "${BUILD_DIR}/webapps.json" "${WEBAPP_DIR}/webapps.json"
 
 if [ ${REBOOT} -eq 1 ]; then
-    echo
-    echo -n "Rebooting in"
-    for i in {3..1}; do
-        echo -n " ${i}"
-        sleep 1
-    done
-    echo " now..."
-    adb reboot
+    reboot_device
 fi
 
 echo "Done"
