@@ -48,24 +48,38 @@ clean_build_dir
 
 echo
 echo "Packaging ${APP_NAME}..."
-cd "${APP_FOLDER}" >/dev/null || print_error "Failed to cd into ${APP_FOLDER}"
+cp -r "${APP_FOLDER}" "${BUILD_DIR}/${APP_NAME}"
+cd "${BUILD_DIR}/${APP_NAME}/${APP_NAME}" >/dev/null || print_error "Failed to cd into ${BUILD_DIR}/${APP_NAME}/${APP_NAME}"
+
+if [ -x "${APP_FOLDER}.pre" ]; then
+    echo "Running ${APP_FOLDER}.pre..."
+    "${APP_FOLDER}.pre"
+fi
+
 zip -r "${BUILD_DIR}/${APP_NAME}/application.zip" . || print_error "Failed to package ${APP_NAME}"
+mv "${BUILD_DIR}/${APP_NAME}/${APP_NAME}/manifest.webapp" "${BUILD_DIR}/${APP_NAME}/manifest.webapp"
 cd - >/dev/null
-cp -v "${APP_FOLDER}_manifest.webapp" "${BUILD_DIR}/${APP_NAME}/manifest.webapp" || print_error "Failed to find ${APP_FOLDER}_manifest.webapp"
+rm -rf "${BUILD_DIR}/${APP_NAME}/${APP_NAME}"
 
 if [ ${PUSH} -eq 1 ]; then
     echo
-    echo "Attempting to update basePath for ${APP_NAME}..."
+    echo "Retrieving webapps.json..."
     adb pull "${WEBAPP_DIR}/webapps.json" "${BUILD_DIR}/webapps.json"
-    jq 'if .["'${APP_NAME}'"].basePath? then .["'${APP_NAME}'"].basePath = "'${WEBAPP_DIR}'" else error("Key not found") end' \
-        "${BUILD_DIR}/webapps.json" > "${BUILD_DIR}/webapps_updated.json" \
-        || print_error "Failed to update basePath for ${APP_NAME}"
-    diff -u --color=always "${BUILD_DIR}/webapps.json" "${BUILD_DIR}/webapps_updated.json"
-    mv "${BUILD_DIR}/webapps_updated.json" "${BUILD_DIR}/webapps.json"
-    echo
-    echo "Pushing ${APP_NAME}..."
-    adb push "${BUILD_DIR}/${APP_NAME}" "${WEBAPP_DIR}/${APP_NAME}"
-    adb push "${BUILD_DIR}/webapps.json" "${WEBAPP_DIR}/webapps.json"
+    preinstalled="$(jq -r '.["'${APP_NAME}'"].preinstalled // false' "${BUILD_DIR}/webapps.json")"
+    if [ "${preinstalled}" = "true" ]; then
+        echo "Attempting to update basePath for preinstalled ${APP_NAME}..."
+        jq 'if .["'${APP_NAME}'"].basePath? then .["'${APP_NAME}'"].basePath = "'${WEBAPP_DIR}'" else error("Key not found") end' \
+            "${BUILD_DIR}/webapps.json" > "${BUILD_DIR}/webapps_updated.json" \
+            || print_error "Failed to update basePath for ${APP_NAME}"
+        diff -u --color=always "${BUILD_DIR}/webapps.json" "${BUILD_DIR}/webapps_updated.json"
+        mv "${BUILD_DIR}/webapps_updated.json" "${BUILD_DIR}/webapps.json"
+        echo
+        echo "Pushing ${APP_NAME}..."
+        adb push "${BUILD_DIR}/webapps.json" "${WEBAPP_DIR}/webapps.json"
+        adb push "${BUILD_DIR}/${APP_NAME}" "${WEBAPP_DIR}/${APP_NAME}"
+    else
+        install_with_gdeploy "${BUILD_DIR}/${APP_NAME}/application.zip"
+    fi
 fi
 if [ ${REBOOT} -eq 1 ]; then
     reboot_device

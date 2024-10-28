@@ -23,6 +23,31 @@ function clean_build_dir()
     return 0
 }
 
+function install_with_gdeploy()
+{
+    [ -z "${APP_NAME}" ] && print_error "APP_NAME not set"
+    local archive="${1}"
+    [ ! -f "${archive}" ] && print_error "${archive} not found!"
+    local tmp_dir="$(mktemp -d)"
+    unzip "${archive}" -d "${tmp_dir}/${APP_NAME}"
+    if [ $? -ne 0 ]; then
+        rm -rf "${tmp_dir}"
+        print_error "Failed to unzip ${archive}"
+    fi
+    installed="$(gdeploy list | awk '/'"${APP_NAME}"'/{print $1, gensub(/.*app:\/\/([^\/]+)\/.*/, "\\1", "g")}')"
+    if [ -n "${installed}" ]; then
+        echo
+        uuid="$(echo "${installed}" | awk '{print $2}')"
+        echo "Uninstalling ${APP_NAME} previously installed with UUID ${uuid}..."
+        gdeploy uninstall "${uuid}"
+    fi
+
+    echo
+    echo "Installing ${APP_NAME}..."
+    gdeploy install "${tmp_dir}/${APP_NAME}"
+    rm -rf "${tmp_dir}"
+}
+
 function reboot_device()
 {
     echo
@@ -35,6 +60,8 @@ function reboot_device()
     adb reboot
     return 0
 }
+
+[ -z "${ROOT_DIR}" ] && print_error "ROOT_DIR not set"
 
 WEBAPP_DIR="/data/local/webapps"
 SYSTEM_WEBAPP_DIR="/system/b2g/webapps"

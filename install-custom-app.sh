@@ -41,19 +41,7 @@ clean_build_dir
 
 echo
 echo "Preparing ${APP_NAME}..."
-unzip "${ARCHIVE}" -d "${BUILD_DIR}/${APP_NAME}" || print_error "Failed to unzip ${ARCHIVE}"
-
-installed="$(gdeploy list | awk '/'"${APP_NAME}"'/{print $1, gensub(/.*app:\/\/([^\/]+)\/.*/, "\\1", "g")}')"
-if [ -n "${installed}" ]; then
-    echo
-    uuid="$(echo "${installed}" | awk '{print $2}')"
-    echo "Uninstalling ${APP_NAME} previously installed with UUID ${uuid}..."
-    gdeploy uninstall "${uuid}"
-fi
-
-echo
-echo "Installing ${APP_NAME}..."
-gdeploy install "${BUILD_DIR}/${APP_NAME}"
+install_with_gdeploy "${ARCHIVE}"
 
 if [ ${REBOOT} -eq 1 ]; then
     reboot_device
