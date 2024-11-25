@@ -1,0 +1,62 @@
+{
+  "name": "passport",
+  "id": "passport",
+  "description": "At times it is practically fast to access digital train / airplane qrcode tickets to showcase at a check-in. I wrote an app for that. All images,PDF's and vcards in the folder / passport / are listed.",
+
+  "lang": "en-US",
+  "start_url": "/index.html",
+  "priority": "high",
+  "userAgentInfo": "passport written by strukturart@gmail.com",
+
+  "icons": [
+    {
+      "src": "/assets/icons/icon-56-56.png",
+      "type": "image/png",
+      "sizes": "56x56"
+    },
+    {
+      "src": "/assets/icons/icon-112-112.png",
+      "type": "image/png",
+      "sizes": "112x112"
+    }
+  ],
+
+  "b2g_features": {
+    "version": "0.0.743",
+    "id": "passport",
+    "core": true,
+    "categories": ["utilities"],
+    "type": "privileged",
+    "display": "fullscreen",
+    "theme_color": "#ffffff",
+
+    "developer": {
+      "name": "strukturart",
+      "url": "https://github.com/strukturart/passport"
+    },
+
+    "dependencies": {
+      "ads-sdk": "1.5.8"
+    },
+
+    "permissions": {
+      "mobiledata": {},
+      "wifidata": {},
+      "calllog": {},
+      "contacts": {},
+
+      "device-storage:sdcard": {
+        "description": "Read/Write from/to sd-card",
+        "access": "readwrite"
+      },
+
+      "video-capture": {
+        "description": "Reading Codes using the Camera"
+      },
+
+      "spatialnavigation-app-manage": {
+        "navigator.spatialNavigationEnabled": false
+      }
+    }
+  }
+}

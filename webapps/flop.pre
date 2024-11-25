@@ -1,6 +1,0 @@
-#!/bin/bash
-
-cat <<EOF > .env
-TURN_APP_KEY=${METERED_TURN_SERVER_API_KEY}
-TURN_APP_NAME=davidgrieser
-EOF

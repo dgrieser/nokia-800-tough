@@ -1,0 +1,47 @@
+{
+  "version": "1.2.20",
+  "name": "passport",
+  "description": "At times it is practically fast to access digital train  airplane qrcode tickets to showcase at a check-in. I wrote an app for that. All All images,PDF's and vcards in the folder  passport  are listed.",
+  "launch_path": "/index.html",
+  "fullscreen": "true",
+  "lang": "en-US",
+  "type": "privileged",
+
+  "icons": {
+    "56": "/assets/icons/icon-56-56.png",
+    "112": "/assets/icons/icon-112-112.png"
+  },
+
+  "developer": {
+    "name": "strukturart",
+    "url": "https://github.com/strukturart/passport"
+  },
+  "dependencies": {
+    "ads-sdk": "1.5.0"
+  },
+  "locales": {
+    "en-US": {
+      "name": "Passport",
+      "subtitle": "Ticket please",
+      "description": "At times it is practically fast to access digital train airplane qrcode tickets to showcase at a check-in. I wrote an app for that. All images,PDF's and vcards in the folder passport  are listed."
+    }
+  },
+  
+   
+  "default_locale": "en-US",
+
+  "permissions": {
+    "device-storage:sdcard": {
+      "description": "Read from sd-card",
+      "access": "readwrite"
+    },
+
+    "video-capture": {
+      "description": "Reading Codes using the Camera"
+    },
+    "mobiledata": {},
+    "wifidata": {},
+    "calllog": {},
+    "contacts":{}
+  }
+}
